@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ví Căn Tin</title>
+</head>
+<body>
+
+<h2>Hệ thống Ví Căn Tin</h2>
+
+<div class="box">
+    <h3>Danh sách ví</h3>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Số dư</th>
+        </tr>
+        <tr th:each="w : ${wallets}">
+            <td th:text="${w.id}"></td>
+            <td th:text="${w.balance}"></td>
+        </tr>
+    </table>
+</div>
+
+<p th:if="${message}" class="success" th:text="${message}"></p>
+<p th:if="${error}" class="error" th:text="${error}"></p>
+
+<div class="box">
+    <h3>Chuyển tiền</h3>
+
+    <form th:action="@{/wallet/transfer}" method="post">
+
+        <label>Ví gửi (ID):</label><br>
+        <input type="number" name="fromId" required><br><br>
+
+        <label>Ví nhận (ID):</label><br>
+        <input type="number" name="toId" required><br><br>
+
+        <label>Số tiền:</label><br>
+        <input type="number" name="amount" step="0.01" required><br><br>
+
+        <button type="submit">Chuyển tiền</button>
+    </form>
+</div>
+
+</body>
+</html>
